@@ -1,0 +1,14 @@
+server:
+  port: 8889
+
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          addLabelLocations: false
+          searchLocations:
+            - classpath:/config/{application}/{profile}
+            - file:./config/{application}/{profile}
