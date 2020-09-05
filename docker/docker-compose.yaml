@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  consul:
+    image: consul:1.8.3
+    container_name: usvc_consul
+    entrypoint: ["consul", "agent", "-dev", "--config-dir=/consul/config"]
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    ports:
+      - 0.0.0.0:8501:8500
+      - 0.0.0.0:8601:8600
+      - 0.0.0.0:8601:8600/udp
+    networks:
+      - usvcnet
+    volumes:
+      - ${CONSUL_DATA_DIR}:/consul/data
+      - ${CONSUL_CONFIG_DIR}:/consul/config
+
+networks:
+  usvcnet:
+    driver: bridge
