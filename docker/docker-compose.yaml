@@ -1,6 +1,18 @@
 version: '3.7'
 
 services:
+  db:
+    image: postgres:12
+    container_name: usvc_db
+    restart: on-failure
+    ports:
+      - 0.0.0.0:5432:5432
+    volumes:
+      - ${POSTGRES_DATA_DIR}:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: usvc
+      POSTGRES_USER: usvc
+      POSTGRES_PASSWORD: usvc
   consul:
     image: consul:1.8.3
     container_name: usvc_consul
