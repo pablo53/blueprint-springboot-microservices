@@ -1,2 +1,17 @@
 server:
   port: 8081
+spring:
+  application:
+    name: usvc-app-a
+  cloud:
+    discovery:
+      enabled: true
+    consul:
+      enabled: true
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8501}
+      discovery:
+        enabled: true
+        register: true
+      config:
+        enabled: false
