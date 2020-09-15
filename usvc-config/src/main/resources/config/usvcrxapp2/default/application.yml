@@ -1,12 +1,12 @@
 server:
   port: 8083
 spring:
+  application:
+    name: usvc-app-c
   r2dbc:
     username: ${POSTGRES_USER:usvc}
     password: ${POSTGRES_PASSWORD:usvc}
     url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:usvc}
-  application:
-    name: usvc-app-c
   cloud:
     discovery:
       enabled: true
