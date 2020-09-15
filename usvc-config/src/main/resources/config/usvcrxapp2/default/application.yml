@@ -1,0 +1,35 @@
+server:
+  port: 8083
+spring:
+  r2dbc:
+    username: ${POSTGRES_USER:usvc}
+    password: ${POSTGRES_PASSWORD:usvc}
+    url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:usvc}
+  application:
+    name: usvc-app-c
+  cloud:
+    discovery:
+      enabled: true
+    consul:
+      enabled: true
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8501}
+      discovery:
+        enabled: true
+        register: true
+      config:
+        enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG

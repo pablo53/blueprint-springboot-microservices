@@ -13,6 +13,7 @@
         <module>usvc-config</module>
         <module>usvc-app</module>
         <module>usvc-rxapp</module>
+        <module>usvc-rxapp2</module>
     </modules>
 
 </project>
