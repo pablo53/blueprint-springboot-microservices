@@ -12,3 +12,11 @@ spring:
           searchLocations:
             - classpath:/config/{application}/{profile}
             - file:./config/{application}/{profile}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true

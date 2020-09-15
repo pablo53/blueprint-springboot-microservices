@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: migrations/001-schema.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: migrations/002-populate.yaml
+      relativeToChangelogFile: true

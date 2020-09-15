@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-1
+      author: pryszawa
+      changes:
+        - insert:
+            tableName: abouts
+            columns:
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: description
+                  value: "This is the first row..."
+        - insert:
+            tableName: abouts
+            columns:
+              - column:
+                  name: id
+                  value: "2"
+              - column:
+                  name: description
+                  value: "...and this is another one..."

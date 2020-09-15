@@ -1,8 +1,15 @@
 server:
   port: 8081
 spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:usvc}
+    username: ${POSTGRES_USER:usvc}
+    password: ${POSTGRES_PASSWORD:usvc}
   application:
     name: usvc-app-a
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
   cloud:
     discovery:
       enabled: true
@@ -23,3 +30,6 @@ management:
   endpoint:
     shutdown:
       enabled: true
+logging:
+  level:
+    liquibase: DEBUG

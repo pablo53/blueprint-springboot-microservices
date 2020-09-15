@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-1
+      author: pryszawa
+      changes:
+        - createTable:
+            tableName: abouts
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar
