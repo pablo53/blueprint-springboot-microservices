@@ -15,3 +15,11 @@ spring:
         register: true
       config:
         enabled: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
