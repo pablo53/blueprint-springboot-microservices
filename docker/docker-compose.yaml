@@ -44,6 +44,20 @@ services:
     volumes:
       - ${CONSUL_DATA_DIR}:/consul/data
       - ${CONSUL_CONFIG_DIR}:/consul/config
+  jaeger:
+    image: jaegertracing/all-in-one:1.19.2
+    container_name: usvc_jaeger
+    restart: on-failure
+    ports:
+      - 0.0.0.0:16687:16686
+      - 0.0.0.0:6832:6831
+    networks:
+      - usvcnet
+    volumes:
+      - ${JAEGER_DATA_DIR}:/tmp
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: usvc
+      MONGO_INITDB_ROOT_PASSWORD: usvc
 
 networks:
   usvcnet:
