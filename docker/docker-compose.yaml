@@ -7,12 +7,27 @@ services:
     restart: on-failure
     ports:
       - 0.0.0.0:5432:5432
+    networks:
+      - usvcnet
     volumes:
       - ${POSTGRES_DATA_DIR}:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: usvc
       POSTGRES_USER: usvc
       POSTGRES_PASSWORD: usvc
+  mongodb:
+    image: mongo:4.4.1
+    container_name: usvc_mongodb
+    restart: on-failure
+    ports:
+      - 0.0.0.0:27017:27017
+    networks:
+      - usvcnet
+    volumes:
+      - ${MONGO_DATA_DIR}:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: usvc
+      MONGO_INITDB_ROOT_PASSWORD: usvc
   consul:
     image: consul:1.8.3
     container_name: usvc_consul

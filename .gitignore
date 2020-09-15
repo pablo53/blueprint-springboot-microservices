@@ -30,3 +30,4 @@ target/
 # Docker
 docker/volume/consul/data/
 docker/volume/postgres/data/
+docker/volume/mongo/data/
