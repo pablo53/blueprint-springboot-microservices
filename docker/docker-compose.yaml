@@ -44,6 +44,29 @@ services:
     volumes:
       - ${CONSUL_DATA_DIR}:/consul/data
       - ${CONSUL_CONFIG_DIR}:/consul/config
+  elasticsearch:
+    image: elasticsearch:7.9.1
+    container_name: usvc_elk
+    restart: on-failure
+    ports:
+      - 0.0.0.0:9201:9200
+      - 0.0.0.0:9301:9300
+    networks:
+      - usvcnet
+    volumes:
+      - ${ELK_DATA_DIR}:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+  kibana:
+    image: kibana:7.9.1
+    container_name: usvc_kibana
+    restart: on-failure
+    ports:
+      - 0.0.0.0:5602:5601
+    networks:
+      - usvcnet
+    volumes:
+      - ${KIBANA_CONFIG_DIR}:/usr/share/kibana/config
   jaeger:
     image: jaegertracing/all-in-one:1.19.2
     container_name: usvc_jaeger

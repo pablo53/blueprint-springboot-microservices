@@ -31,3 +31,5 @@ target/
 docker/volume/consul/data/
 docker/volume/postgres/data/
 docker/volume/mongo/data/
+docker/volume/jaeger/data/
+docker/volume/elk/data/
