@@ -81,6 +81,54 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: usvc
       MONGO_INITDB_ROOT_PASSWORD: usvc
+  zookeeper1:
+    image: zookeeper:3.6.1
+    container_name: usvc_zoo1
+    restart: on-failure
+    ports:
+      - 0.0.0.0:2182:2181
+      - 0.0.0.0:9081:8080
+    networks:
+      - usvcnet
+    volumes:
+      - ${ZOOKEPER_DATA_DIR}/1:/data
+      - ${ZOOKEPER_DATALOG_DIR}/1:/datalog
+      - ${ZOOKEPER_LOGS_DIR}/1:/logs
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=usvc_zoo2:2888:3888;2181 server.3=usvc_zoo3:2888:3888;2181
+  zookeeper2:
+    image: zookeeper:3.6.1
+    container_name: usvc_zoo2
+    restart: on-failure
+    ports:
+      - 0.0.0.0:2183:2181
+      - 0.0.0.0:9082:8080
+    networks:
+      - usvcnet
+    volumes:
+      - ${ZOOKEPER_DATA_DIR}/2:/data
+      - ${ZOOKEPER_DATALOG_DIR}/2:/datalog
+      - ${ZOOKEPER_LOGS_DIR}/2:/logs
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=usvc_zoo1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=usvc_zoo3:2888:3888;2181
+  zookeeper3:
+    image: zookeeper:3.6.1
+    container_name: usvc_zoo3
+    restart: on-failure
+    ports:
+      - 0.0.0.0:2184:2181
+      - 0.0.0.0:9083:8080
+    networks:
+      - usvcnet
+    volumes:
+      - ${ZOOKEPER_DATA_DIR}/3:/data
+      - ${ZOOKEPER_DATALOG_DIR}/3:/datalog
+      - ${ZOOKEPER_LOGS_DIR}/3:/logs
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=usvc_zoo1:2888:3888;2181 server.2=usvc_zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
 
 networks:
   usvcnet:
