@@ -33,3 +33,6 @@ docker/volume/postgres/data/
 docker/volume/mongo/data/
 docker/volume/jaeger/data/
 docker/volume/elk/data/
+docker/volume/zookeeper/data/
+docker/volume/zookeeper/datalog/
+docker/volume/zookeeper/logs/
