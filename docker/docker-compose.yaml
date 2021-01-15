@@ -129,6 +129,62 @@ services:
     environment:
       ZOO_MY_ID: 3
       ZOO_SERVERS: server.1=usvc_zoo1:2888:3888;2181 server.2=usvc_zoo2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+  kafka1:
+    container_name: usvc_kafka1
+    image: wurstmeister/kafka:2.13-2.6.0
+    ports:
+      - 0.0.0.0:9192:9092
+      - 0.0.0.0:9193:9093
+    hostname: usvc_kafka1
+    networks:
+      - usvcnet
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: KAFKALISTENER://usvc_kafka1:9092,KAFKALISTENERSSL://usvc_kafka1:9093
+      KAFKA_ADVERTISED_LISTENERS: KAFKALISTENER://usvc_kafka1:9092
+      KAFKA_ZOOKEEPER_CONNECT: usvc_zoo1:2181,usvc_zoo2:2181,usvc_zoo3:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: KAFKALISTENER:PLAINTEXT,KAFKALISTENERSSL:SSL
+      KAFKA_INTER_BROKER_LISTENER_NAME: KAFKALISTENER
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+  kafka2:
+    container_name: usvc_kafka2
+    image: wurstmeister/kafka:2.13-2.6.0
+    ports:
+      - 0.0.0.0:9292:9092
+      - 0.0.0.0:9293:9093
+    hostname: usvc_kafka2
+    networks:
+      - usvcnet
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_LISTENERS: KAFKALISTENER://usvc_kafka2:9092,KAFKALISTENERSSL://usvc_kafka2:9093
+      KAFKA_ADVERTISED_LISTENERS: KAFKALISTENER://usvc_kafka2:9092
+      KAFKA_ZOOKEEPER_CONNECT: usvc_zoo1:2181,usvc_zoo2:2181,usvc_zoo3:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: KAFKALISTENER:PLAINTEXT,KAFKALISTENERSSL:SSL
+      KAFKA_INTER_BROKER_LISTENER_NAME: KAFKALISTENER
+    depends_on:
+      - kafka1
+  kafka3:
+    container_name: usvc_kafka3
+    image: wurstmeister/kafka:2.13-2.6.0
+    ports:
+      - 0.0.0.0:9392:9092
+      - 0.0.0.0:9393:9093
+    hostname: usvc_kafka3
+    networks:
+      - usvcnet
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_LISTENERS: KAFKALISTENER://usvc_kafka3:9092,KAFKALISTENERSSL://usvc_kafka3:9093
+      KAFKA_ADVERTISED_LISTENERS: KAFKALISTENER://usvc_kafka3:9092
+      KAFKA_ZOOKEEPER_CONNECT: usvc_zoo1:2181,usvc_zoo2:2181,usvc_zoo3:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: KAFKALISTENER:PLAINTEXT,KAFKALISTENERSSL:SSL
+      KAFKA_INTER_BROKER_LISTENER_NAME: KAFKALISTENER
+    depends_on:
+      - kafka2
 
 networks:
   usvcnet:
