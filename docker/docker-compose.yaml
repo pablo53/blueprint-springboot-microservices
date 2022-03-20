@@ -72,13 +72,20 @@ services:
     container_name: usvc_jaeger
     restart: on-failure
     ports:
-      - 0.0.0.0:16687:16686
-      - 0.0.0.0:6832:6831
+      - 0.0.0.0:15775:5775
+      - 0.0.0.0:16831:6831
+      - 0.0.0.0:16832:6832
+      - 0.0.0.0:15778:5778
+      - 0.0.0.0:26686:16686
+      - 0.0.0.0:24268:14268
+      - 0.0.0.0:24250:14250
+      - 0.0.0.0:19411:9411
     networks:
       - usvcnet
     volumes:
       - ${JAEGER_DATA_DIR}:/tmp
     environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: :9411
       MONGO_INITDB_ROOT_USERNAME: usvc
       MONGO_INITDB_ROOT_PASSWORD: usvc
   zookeeper1:

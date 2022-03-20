@@ -22,6 +22,8 @@ spring:
         register: true
       config:
         enabled: false
+  zipkin:
+    baseUrl: http://localhost:19411/
 management:
   endpoints:
     web:
