@@ -1,7 +1,11 @@
+export UID=$(id -u)
+export GID=$(id -g)
 export CONSUL_DATA_DIR=$(pwd)/volume/consul/data
 export CONSUL_CONFIG_DIR=$(pwd)/volume/consul/config
 export POSTGRES_DATA_DIR=$(pwd)/volume/postgres/data
 export MONGO_DATA_DIR=$(pwd)/volume/mongo/data
+export PROMETHEUS_DATA_DIR=$(pwd)/volume/prometheus/data
+export PROMETHEUS_CONFIG_DIR=$(pwd)/volume/prometheus/config
 export JAEGER_DATA_DIR=$(pwd)/volume/jaeger/data
 export ELK_DATA_DIR=$(pwd)/volume/elk/data
 export KIBANA_CONFIG_DIR=$(pwd)/volume/kibana/config

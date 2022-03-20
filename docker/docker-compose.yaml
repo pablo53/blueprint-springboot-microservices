@@ -67,6 +67,20 @@ services:
       - usvcnet
     volumes:
       - ${KIBANA_CONFIG_DIR}:/usr/share/kibana/config
+  prometheus:
+    image: prom/prometheus:v2.34.0
+    container_name: usvc_prometheus
+    restart: on-failure
+    ports:
+      - 0.0.0.0:19090:9090
+    networks:
+      - usvcnet
+    user: ${UID}:${GID}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${PROMETHEUS_DATA_DIR}:/prometheus
+      - ${PROMETHEUS_CONFIG_DIR}:/etc/prometheus
   jaeger:
     image: jaegertracing/all-in-one:1.19.2
     container_name: usvc_jaeger
