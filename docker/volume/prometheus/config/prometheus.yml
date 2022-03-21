@@ -10,3 +10,12 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9090']
+        labels:
+          group: 'prometheus'
+  - job_name: 'actuator'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['host.docker.internal:8081']
+        labels:
+          group: 'usvc-app'
