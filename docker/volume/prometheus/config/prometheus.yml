@@ -19,3 +19,6 @@ scrape_configs:
       - targets: ['host.docker.internal:8081']
         labels:
           group: 'usvc-app'
+      - targets: ['host.docker.internal:8084']
+        labels:
+          group: 'usvc-elkapp'
