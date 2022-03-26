@@ -19,3 +19,9 @@ scrape_configs:
       - server: 'usvc_consul:8500'
         scheme: http
         refresh_interval: 5s
+    relabel_configs:
+      - source_labels: [__meta_consul_service]
+        regex: usvc-app-(.*)
+        action: keep
+      - source_labels: [__meta_consul_service]
+        target_label: job
