@@ -19,6 +19,6 @@ class ProxyController(
     )
     @GetMapping("/echo/{message}")
     fun getProxyEcho(@PathVariable("message") message: String): ResponseEntity<String> =
-        ResponseEntity.ok(proxyService.getProxyEcho(message + message))
+        ResponseEntity.ok(proxyService.getProxyEcho(message))
 
 }
