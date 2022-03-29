@@ -15,6 +15,21 @@ services:
       POSTGRES_DB: usvc
       POSTGRES_USER: usvc
       POSTGRES_PASSWORD: usvc
+  dbkeycloak:
+    image: postgres:12
+    container_name: usvc_db_keycloak
+    hostname: usvc_db_keycloak
+    restart: on-failure
+    ports:
+      - 0.0.0.0:15432:5432
+    networks:
+      - usvcnet
+    volumes:
+      - ${POSTGRES2_DATA_DIR}:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
   mongodb:
     image: mongo:4.4.1
     container_name: usvc_mongodb
@@ -28,6 +43,25 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: usvc
       MONGO_INITDB_ROOT_PASSWORD: usvc
+  keycloak:
+    image: jboss/keycloak:16.1.1
+    container_name: usvc_keycloak
+    hostname: usvc_keycloak
+    restart: on-failure
+    ports:
+      - 0.0.0.0:18080:8080
+    networks:
+      - usvcnet
+    environment:
+      KEYCLOAK_USER: keycloak
+      KEYCLOAK_PASSWORD: keycloak123
+      DB_VENDOR: postgres
+      DB_ADDR: usvc_db_keycloak
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      #DB_SCHEMA: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: keycloak
   consul:
     image: consul:1.8.3
     container_name: usvc_consul
