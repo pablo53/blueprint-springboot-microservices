@@ -1,0 +1,33 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: usvc-app-e
+  cloud:
+    discovery:
+      enabled: true
+    consul:
+      enabled: true
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8501}
+      discovery:
+        enabled: true
+        register: true
+      config:
+        enabled: false
+  zipkin:
+    baseUrl: ${JAEGER_URL:http://localhost:19411/}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+logging:
+  level:
+    liquibase: DEBUG
+
+apigw:
+  url: http://localhost:8081/

@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: usvcapp2
+  profiles:
+    active: default
+  config:
+    import: configserver:${SPRING_CLOUD_CONFIG_URI:http://localhost:8889}
+  cloud:
+    config:
+      fail-fast: true  # it can be overwritten by adding "?fail-fast=false" at the end of spring.config.import

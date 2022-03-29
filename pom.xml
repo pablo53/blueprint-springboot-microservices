@@ -12,6 +12,7 @@
     <modules>
         <module>usvc-config</module>
         <module>usvc-app</module>
+        <module>usvc-app2</module>
         <module>usvc-rxapp</module>
         <module>usvc-rxapp2</module>
         <module>usvc-elkapp</module>
