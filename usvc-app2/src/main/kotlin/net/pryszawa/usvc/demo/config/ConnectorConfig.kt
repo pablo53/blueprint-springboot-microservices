@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.BufferingClientHttpRequestFactory
 import org.springframework.http.client.ClientHttpRequestInterceptor
-import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -30,7 +30,11 @@ class ConnectorConfig {
         RestTemplateBuilder()
             .rootUri(apiGatewayUrl)
             .interceptors(loggerInterceptor())
-            .requestFactory { BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory()) }
+            .requestFactory {
+                BufferingClientHttpRequestFactory( // a wrapper for logging interceptor to reread body
+                    HttpComponentsClientHttpRequestFactory() // Apache HTTP components allow PATCH method, but it could be SimpleClientHttpRequestFactory() for standard JDK http clients
+                )
+            }
             .build()
 
     @Bean
