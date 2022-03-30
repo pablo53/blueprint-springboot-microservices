@@ -62,6 +62,35 @@ services:
       #DB_SCHEMA: keycloak
       DB_USER: keycloak
       DB_PASSWORD: keycloak
+  ldap:
+    image: bitnami/openldap:2.6.1
+    container_name: usvc_ldap
+    hostname: usvc_ldap
+    restart: on-failure
+    ports:
+      - 0.0.0.0:2389:1389
+      - 0.0.0.0:2636:1636
+    networks:
+      - usvcnet
+    volumes:
+      - ${LDAP_DATA_DIR}:/bitnami/openldap
+      - ${LDAP_CONFIG_CERTS_DIR}:/opt/bitnami/openldap/etc/certs
+    environment:
+      LDAP_ADMIN_USERNAME: admin
+      LDAP_ADMIN_PASSWORD: admin123
+      LDAP_USERS: usvc1,usvc2,usvc3
+      LDAP_PASSWORDS: usvc123,usvc123,usvc123
+      LDAP_PORT_NUMBER: 1389
+      LDAP_ENABLE_TLS: "no"
+      LDAP_LDAPS_PORT_NUMBER: 1636
+      LDAP_TLS_CERT_FILE: /opt/bitnami/openldap/etc/certs/openldap.crt
+      LDAP_TLS_KEY_FILE: /opt/bitnami/openldap/etc/certs/openldap.key
+      LDAP_TLS_CA_FILE: /opt/bitnami/openldap/etc/certs/openldapCA.crt
+      LDAP_TLS_DH_PARAMS_FILE:
+      ALLOW_EMPTY_PASSWORD: "yes"
+      LDAP_ROOT: dc=pryszawa,dc=net
+      LDAP_USER_DC: users
+      LDAP_GROUP: readers
   consul:
     image: consul:1.8.3
     container_name: usvc_consul

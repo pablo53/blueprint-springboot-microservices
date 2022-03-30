@@ -5,6 +5,8 @@ export CONSUL_CONFIG_DIR=$(pwd)/volume/consul/config
 export POSTGRES_DATA_DIR=$(pwd)/volume/postgres/data
 export POSTGRES2_DATA_DIR=$(pwd)/volume/postgres2/data
 export MONGO_DATA_DIR=$(pwd)/volume/mongo/data
+export LDAP_DATA_DIR=$(pwd)/volume/ldap/data
+export LDAP_CONFIG_CERTS_DIR=$(pwd)/volume/ldap/config/certs
 export PROMETHEUS_DATA_DIR=$(pwd)/volume/prometheus/data
 export PROMETHEUS_CONFIG_DIR=$(pwd)/volume/prometheus/config
 export JAEGER_DATA_DIR=$(pwd)/volume/jaeger/data
@@ -17,7 +19,12 @@ export ZOOKEPER_LOGS_DIR=$(pwd)/volume/zookeeper/logs
 mkdir -p "${CONSUL_DATA_DIR}"
 mkdir -p "${CONSUL_CONFIG_DIR}"
 mkdir -p "${POSTGRES_DATA_DIR}"
+mkdir -p "${POSTGRES2_DATA_DIR}"
 mkdir -p "${MONGO_DATA_DIR}"
+mkdir -p -m 777 "${LDAP_DATA_DIR}"
+mkdir -p -m 777 "${LDAP_CONFIG_CERTS_DIR}"
+mkdir -p "${PROMETHEUS_DATA_DIR}"
+mkdir -p "${PROMETHEUS_CONFIG_DIR}"
 mkdir -p "${JAEGER_DATA_DIR}"
 mkdir -p "${ELK_DATA_DIR}"
 mkdir -p "${KIBANA_CONFIG_DIR}"
