@@ -12,6 +12,8 @@ export PROMETHEUS_CONFIG_DIR=$(pwd)/volume/prometheus/config
 export JAEGER_DATA_DIR=$(pwd)/volume/jaeger/data
 export ELK_DATA_DIR=$(pwd)/volume/elk/data
 export KIBANA_CONFIG_DIR=$(pwd)/volume/kibana/config
+export GRAFANA_DATA_DIR=$(pwd)/volume/grafana/data
+export GRAFANA_CONFIG_DIR=$(pwd)/volume/grafana/config
 export ZOOKEPER_DATA_DIR=$(pwd)/volume/zookeeper/data
 export ZOOKEPER_DATALOG_DIR=$(pwd)/volume/zookeeper/datalog
 export ZOOKEPER_LOGS_DIR=$(pwd)/volume/zookeeper/logs
@@ -28,6 +30,8 @@ mkdir -p "${PROMETHEUS_CONFIG_DIR}"
 mkdir -p "${JAEGER_DATA_DIR}"
 mkdir -p "${ELK_DATA_DIR}"
 mkdir -p "${KIBANA_CONFIG_DIR}"
+mkdir -p "${GRAFANA_DATA_DIR}"
+mkdir -p "${GRAFANA_CONFIG_DIR}"
 mkdir -p "${ZOOKEPER_DATA_DIR}"
 mkdir -p "${ZOOKEPER_DATALOG_DIR}"
 mkdir -p "${ZOOKEPER_LOGS_DIR}"

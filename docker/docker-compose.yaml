@@ -165,6 +165,20 @@ services:
       COLLECTOR_ZIPKIN_HOST_PORT: :9411
       MONGO_INITDB_ROOT_USERNAME: usvc
       MONGO_INITDB_ROOT_PASSWORD: usvc
+  grafana:
+    image: grafana/grafana-oss:8.2.0
+    container_name: usvc_grafana
+    restart: on-failure
+    ports:
+      - 0.0.0.0:3001:3000
+    networks:
+      - usvcnet
+    user: ${UID}:${GID}
+    volumes:
+      - ${GRAFANA_DATA_DIR}:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin123
   zookeeper1:
     image: zookeeper:3.6.1
     container_name: usvc_zoo1
