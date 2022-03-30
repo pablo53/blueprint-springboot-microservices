@@ -28,12 +28,15 @@ hs_err_pid*
 target/
 
 # Docker
+docker/volume/ldap/data/
 docker/volume/consul/data/
 docker/volume/postgres/data/
+docker/volume/postgres2/data/
 docker/volume/mongo/data/
 docker/volume/prometheus/data/
 docker/volume/jaeger/data/
 docker/volume/elk/data/
+docker/volume/grafana/data/
 docker/volume/zookeeper/data/
 docker/volume/zookeeper/datalog/
 docker/volume/zookeeper/logs/
