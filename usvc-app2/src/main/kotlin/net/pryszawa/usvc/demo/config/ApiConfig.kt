@@ -1,6 +1,8 @@
 package net.pryszawa.usvc.demo.config
 
+import net.pryszawa.usvc.demo.service.FeatureToggleService
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -19,10 +21,14 @@ class ApiConfig {
 
     @Bean
     @Qualifier("defaultLoggingFilter")
-    fun loggingFilter(@Value("\${insights.logging.max-payload-length}") maxPayloadLength: Int) =
+    fun loggingFilter(
+        @Value("\${insights.logging.max-payload-length}") maxPayloadLength: Int,
+        @Autowired featureToggleService: FeatureToggleService,
+    ) =
         object : AbstractRequestLoggingFilter() {
 
-            override fun shouldLog(request: HttpServletRequest): Boolean = log.isInfoEnabled
+            override fun shouldLog(request: HttpServletRequest): Boolean =
+                log.isInfoEnabled && featureToggleService.isEnabled("usvc.log-payloads", false)
 
             override fun beforeRequest(request: HttpServletRequest, message: String) = log.info(message)
 
@@ -33,6 +39,7 @@ class ApiConfig {
             setIncludeQueryString(true)
             setIncludeHeaders(true)
             setIncludePayload(true)
+            setIncludeClientInfo(true)
             setMaxPayloadLength(maxPayloadLength)
         }
 

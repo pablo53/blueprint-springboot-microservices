@@ -30,6 +30,21 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: keycloak
+  dbunleash:
+    image: postgres:12
+    container_name: usvc_db_unleash
+    hostname: usvc_db_unleash
+    restart: on-failure
+    ports:
+      - 0.0.0.0:25432:5432
+    networks:
+      - usvcnet
+    volumes:
+      - ${POSTGRES3_DATA_DIR}:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: unleash
+      POSTGRES_USER: unleash
+      POSTGRES_PASSWORD: unleash
   mongodb:
     image: mongo:4.4.1
     container_name: usvc_mongodb
@@ -43,6 +58,21 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: usvc
       MONGO_INITDB_ROOT_PASSWORD: usvc
+  unleash:
+    image: unleashorg/unleash-server:4.8.2
+    container_name: usvc_unleash
+    hostname: usvc_unleash
+    restart: on-failure
+    ports:
+      - 0.0.0.0:14242:4242
+    networks:
+      - usvcnet
+    environment:
+      DATABASE_HOST: usvc_db_unleash
+      DATABASE_NAME: unleash
+      DATABASE_USERNAME: unleash
+      DATABASE_PASSWORD: unleash
+      DATABASE_SSL: "false"
   keycloak:
     image: jboss/keycloak:16.1.1
     container_name: usvc_keycloak

@@ -1,6 +1,8 @@
 package net.pryszawa.usvc.demo.config
 
+import net.pryszawa.usvc.demo.service.FeatureToggleService
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -26,10 +28,13 @@ class ConnectorConfig {
 
     @Bean
     @Qualifier("defaultApiGatewayConnector")
-    fun defaultApiGatewayRestTemplate(@Value("\${apigw.url}") apiGatewayUrl: String): RestTemplate =
+    fun defaultApiGatewayRestTemplate(
+        @Value("\${apigw.url}") apiGatewayUrl: String,
+        @Autowired @Qualifier("defaultLoggerInterceptor") clientHttpRequestInterceptor: ClientHttpRequestInterceptor,
+    ): RestTemplate =
         RestTemplateBuilder()
             .rootUri(apiGatewayUrl)
-            .interceptors(loggerInterceptor())
+            .interceptors(clientHttpRequestInterceptor)
             .requestFactory {
                 BufferingClientHttpRequestFactory( // a wrapper for logging interceptor to reread body
                     HttpComponentsClientHttpRequestFactory() // Apache HTTP components allow PATCH method, but it could be SimpleClientHttpRequestFactory() for standard JDK http clients
@@ -39,26 +44,33 @@ class ConnectorConfig {
 
     @Bean
     @Qualifier("defaultLoggerInterceptor")
-    fun loggerInterceptor() =
+    fun loggerInterceptor(
+        @Autowired featureToggleService: FeatureToggleService,
+    ) =
         ClientHttpRequestInterceptor { request, body, execution ->
-            val requestInfo =
-                "Request to ${request.methodValue}  ${request.uri}\n" +
-                        request.headers
-                            .flatMap { hdr -> hdr.value.map { value -> hdr.key to value } }
-                            .joinToString(separator = "\n", prefix = "HEADERS:\n", postfix = "\n") { "${it.first}: ${it.second}" } +
-                        "BODY (length=${body.size}):\n" + String(body, StandardCharsets.UTF_8)
-            log.info(requestInfo)
+            val loggingEnabled = log.isInfoEnabled && featureToggleService.isEnabled("usvc.log-payloads", false)
+            if (loggingEnabled) {
+                val requestInfo =
+                    "Request to ${request.methodValue}  ${request.uri}\n" +
+                            request.headers
+                                .flatMap { hdr -> hdr.value.map { value -> hdr.key to value } }
+                                .joinToString(separator = "\n", prefix = "HEADERS:\n", postfix = "\n") { "${it.first}: ${it.second}" } +
+                            "BODY (length=${body.size}):\n" + String(body, StandardCharsets.UTF_8)
+                log.info(requestInfo)
+            }
             val response = execution.execute(request, body)
-            val responseInfo =
-                "Response from ${request.methodValue}  ${request.uri}\n" +
-                response.headers
-                    .flatMap { hdr -> hdr.value.map { value -> hdr.key to value } }
-                    .joinToString(separator = "\n", prefix = "HEADERS:\n", postfix = "\n") { "${it.first}: ${it.second}" } +
-                BufferedReader(InputStreamReader(response.body, StandardCharsets.UTF_8))
-                    .lines()
-                    .collect(Collectors.joining("\n"))
-                    .let { respBody -> "BODY:\n$respBody\n" }
-            log.info(responseInfo)
+            if (loggingEnabled) {
+                val responseInfo =
+                    "Response from ${request.methodValue}  ${request.uri}\n" +
+                            response.headers
+                                .flatMap { hdr -> hdr.value.map { value -> hdr.key to value } }
+                                .joinToString(separator = "\n", prefix = "HEADERS:\n", postfix = "\n") { "${it.first}: ${it.second}" } +
+                            BufferedReader(InputStreamReader(response.body, StandardCharsets.UTF_8))
+                                .lines()
+                                .collect(Collectors.joining("\n"))
+                                .let { respBody -> "BODY:\n$respBody\n" }
+                log.info(responseInfo)
+            }
             response
         }
 

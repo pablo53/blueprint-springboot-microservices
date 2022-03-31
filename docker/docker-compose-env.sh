@@ -4,6 +4,7 @@ export CONSUL_DATA_DIR=$(pwd)/volume/consul/data
 export CONSUL_CONFIG_DIR=$(pwd)/volume/consul/config
 export POSTGRES_DATA_DIR=$(pwd)/volume/postgres/data
 export POSTGRES2_DATA_DIR=$(pwd)/volume/postgres2/data
+export POSTGRES3_DATA_DIR=$(pwd)/volume/postgres3/data
 export MONGO_DATA_DIR=$(pwd)/volume/mongo/data
 export LDAP_DATA_DIR=$(pwd)/volume/ldap/data
 export LDAP_CONFIG_CERTS_DIR=$(pwd)/volume/ldap/config/certs
@@ -22,6 +23,7 @@ mkdir -p "${CONSUL_DATA_DIR}"
 mkdir -p "${CONSUL_CONFIG_DIR}"
 mkdir -p "${POSTGRES_DATA_DIR}"
 mkdir -p "${POSTGRES2_DATA_DIR}"
+mkdir -p "${POSTGRES3_DATA_DIR}"
 mkdir -p "${MONGO_DATA_DIR}"
 mkdir -p -m 777 "${LDAP_DATA_DIR}"
 mkdir -p -m 777 "${LDAP_CONFIG_CERTS_DIR}"
