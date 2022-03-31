@@ -38,3 +38,7 @@ apigw:
   url: http://localhost:8081/
   token:
     url: http://localhost:18080/auth/realms/usvc-realm/protocol/openid-connect/token
+
+insights:
+  logging:
+    max-payload-length: 4000
