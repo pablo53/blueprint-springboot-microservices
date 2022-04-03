@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: usvc-demo-unleash
+spec:
+  containers:
+    - name: dbunleash
+      image: postgres:12
+      ports:
+        - containerPort: 5432
+          hostPort: 25432
+      volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres3-data-dir
+      env:
+        - name: POSTGRES_DB
+          value: unleash
+        - name: POSTGRES_USER
+          value: unleash
+        - name: POSTGRES_PASSWORD
+          value: unleash
+    - name: unleash
+      image: unleashorg/unleash-server:4.8.2
+      ports:
+        - containerPort: 4242
+          hostPort: 14242
+      env:
+        - name: DATABASE_HOST
+          value: usvc-demo-unleash
+        - name: DATABASE_NAME
+          value: unleash
+        - name: DATABASE_USERNAME
+          value: unleash
+        - name: DATABASE_PASSWORD
+          value: unleash
+        - name: DATABASE_SSL
+          value: "false"
+  volumes:
+    - name: postgres3-data-dir
+      hostPath:
+        path: {{ .Values.local.volumes.path }}/postgres3/data
+        type: DirectoryOrCreate
+  restartPolicy: OnFailure

@@ -1,0 +1,5 @@
+appName: "usvc-demo"
+
+local:
+  volumes:
+    path: ./volume  # this value won't work and must be overridden (see: helm-install.sh)
