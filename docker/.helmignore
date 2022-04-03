@@ -1,3 +1,15 @@
-volume/
 *.sh
 docker-*
+volume/consul/data/
+volume/elk/data/
+volume/grafana/data/
+volume/jaeger/data/
+volume/ldap/data/
+volume/mongo/data/
+volume/postgres/data/
+volume/postgres2/data/
+volume/postgres3/data/
+volume/prometheus/data/
+volume/zookeeper/data/
+volume/zookeeper/datalog/
+volume/zookeeper/logs/
