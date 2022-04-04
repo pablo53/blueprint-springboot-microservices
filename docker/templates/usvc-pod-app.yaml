@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: db
-      image: postgres:12
+      image: postgres:12.10
       ports:
         - containerPort: 5432
           hostPort: 5432
