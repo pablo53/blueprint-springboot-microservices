@@ -1,9 +1,5 @@
 #!/usr/bin/env sh
 
-BASEDIR=$(dirname $(readlink -f "$0"))
+. ./helm-env.sh
 
-echo "BASEDIR=$BASEDIR"
-
-#. ./docker-compose-env.sh
-
-helm install usvc --set "local.volumes.path=$BASEDIR/volume" .
+helm install usvc --set "local.volumes.path=$CHARTDIR/volume" --set "security.uid=$UID"  --set "security.gid=$GID" .
