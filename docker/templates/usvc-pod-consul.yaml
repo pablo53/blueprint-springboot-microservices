@@ -2,10 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: usvc-demo-consul
+  labels:
+    app: Consul
 spec:
+  hostname: usvc-consul
   containers:
     - name: consul
       image: consul:1.8.3
+      command: ["consul"]
+      args: ["agent", "-dev", "--config-dir=/consul/config"]
       ports:
         - containerPort: 8500
           hostPort: 8501
