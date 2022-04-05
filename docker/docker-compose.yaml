@@ -195,8 +195,6 @@ services:
       - ${JAEGER_DATA_DIR}:/tmp
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: :9411
-      MONGO_INITDB_ROOT_USERNAME: usvc
-      MONGO_INITDB_ROOT_PASSWORD: usvc
   grafana:
     image: grafana/grafana-oss:8.2.0
     container_name: usvc_grafana
