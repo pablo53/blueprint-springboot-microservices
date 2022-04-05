@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usvc-demo-jaeger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: Jaeger
+  template:
+    metadata:
+      name: usvc-demo-jaeger
+      labels:
+        app: Jaeger
+    spec:
+      hostname: usvc-jaeger-pod
+      containers:
+        - name: jaeger
+          image: jaegertracing/all-in-one:1.19.2
+          ports:
+            - containerPort: 5775
+              hostPort: 15775
+            - containerPort: 6831
+              hostPort: 16831
+            - containerPort: 6832
+              hostPort: 16832
+            - containerPort: 5778
+              hostPort: 15778
+            - containerPort: 16686
+              hostPort: 26686
+            - containerPort: 14268
+              hostPort: 24268
+            - containerPort: 14250
+              hostPort: 24250
+            - containerPort: 9411
+              hostPort: 19411
+          volumeMounts:
+            - mountPath: /tmp
+              name: jaeger-data-dir
+          env:
+            - name: COLLECTOR_ZIPKIN_HOST_PORT
+              value: :9411
+      volumes:
+        - name: jaeger-data-dir
+          hostPath:
+            path: {{ .Values.local.volumes.path }}/jaeger/data
+            type: DirectoryOrCreate
+      restartPolicy: Always
