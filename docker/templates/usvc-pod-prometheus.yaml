@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: usvc-demo-prometheus
+  labels:
+    app: Prometheus
 spec:
   hostname: usvc-prometheus
   securityContext:
