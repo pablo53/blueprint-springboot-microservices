@@ -50,14 +50,16 @@ services:
     container_name: usvc_mongodb
     restart: on-failure
     ports:
-      - 0.0.0.0:27017:27017
+      - 0.0.0.0:30017:27017
     networks:
       - usvcnet
     volumes:
       - ${MONGO_DATA_DIR}:/data/db
+      - ${MONGO_CONFIG_DIR}:/docker-entrypoint-initdb.d
     environment:
-      MONGO_INITDB_ROOT_USERNAME: usvc
-      MONGO_INITDB_ROOT_PASSWORD: usvc
+      MONGO_INITDB_ROOT_USERNAME: usvcroot
+      MONGO_INITDB_ROOT_PASSWORD: usvcroot123
+      MONGO_INITDB_DATABASE: usvcdb
   unleash:
     image: unleashorg/unleash-server:4.8.2
     container_name: usvc_unleash

@@ -6,6 +6,7 @@ export POSTGRES_DATA_DIR=$(pwd)/volume/postgres/data
 export POSTGRES2_DATA_DIR=$(pwd)/volume/postgres2/data
 export POSTGRES3_DATA_DIR=$(pwd)/volume/postgres3/data
 export MONGO_DATA_DIR=$(pwd)/volume/mongo/data
+export MONGO_CONFIG_DIR=$(pwd)/volume/mongo/config
 export LDAP_DATA_DIR=$(pwd)/volume/ldap/data
 export LDAP_CONFIG_CERTS_DIR=$(pwd)/volume/ldap/config/certs
 export PROMETHEUS_DATA_DIR=$(pwd)/volume/prometheus/data
@@ -25,6 +26,7 @@ mkdir -p "${POSTGRES_DATA_DIR}"
 mkdir -p "${POSTGRES2_DATA_DIR}"
 mkdir -p "${POSTGRES3_DATA_DIR}"
 mkdir -p "${MONGO_DATA_DIR}"
+mkdir -p "${MONGO_CONFIG_DIR}"
 mkdir -p -m 777 "${LDAP_DATA_DIR}"
 mkdir -p -m 777 "${LDAP_CONFIG_CERTS_DIR}"
 mkdir -p "${PROMETHEUS_DATA_DIR}"

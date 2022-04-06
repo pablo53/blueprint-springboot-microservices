@@ -15,6 +15,13 @@ spring:
         register: true
       config:
         enabled: false
+  data:
+    mongodb:
+      host: localhost
+      port: 30017
+      username: usvc
+      password: usvc123
+      database: usvcdb
 management:
   endpoints:
     web:

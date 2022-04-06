@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: usvc-mongo
+spec:
+  selector:
+    app: Mongo
+  type: NodePort
+  ports:
+    - name: mongo-db-port
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+      nodePort: 30017  # note the default port range is 30000-32767 for Microk8s, OpenShift, Kubernetes, etc.
