@@ -2,7 +2,7 @@ server:
   host: 0.0.0.0
   name: kibana
 elasticsearch:
-  hosts: http://usvc_elk:9200
+  hosts: http://usvc-elk:9200
 monitoring:
   ui:
     container:
