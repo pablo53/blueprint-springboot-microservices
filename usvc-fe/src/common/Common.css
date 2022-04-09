@@ -1,0 +1,30 @@
+.CommonForm {
+    text-align: center;
+    background-color: bisque;
+    color: darkolivegreen;
+}
+
+.CommonForm label {
+    color: #222222;
+}
+
+.CommonForm input {
+    border-radius: 7px;
+    border-color: #222222;
+    border-style: none;
+    border-width: thin;
+    margin: 5px;
+    padding: 7px;
+    font-size: medium;
+    color: black;
+}
+
+.CommonForm input[type="submit"] {
+    background-color: #722;
+    color: bisque;
+    font-size: medium;
+}
+
+.CommonForm input[type="submit"]:hover {
+    background-color: #222222;
+}

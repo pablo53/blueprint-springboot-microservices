@@ -1,0 +1,32 @@
+.Raberix {
+  text-align: center;
+}
+
+.Raberix-logo {
+  animation: Raberix-logo-heartbeat infinite 2s linear;
+  height: 80px;
+}
+
+.Raberix-header {
+  background-color: #722;
+  height: 100px;
+  padding: 20px;
+  color: white;
+  text-align: left;
+}
+
+.Raberix-title {
+  color: bisque;
+  margin: 20px;
+  vertical-align: top;
+}
+
+.Raberix-intro {
+  font-size: large;
+}
+
+@keyframes Raberix-logo-heartbeat {
+  from { transform: scale(100%) }
+  90% { transform: scale(75%) }
+  to { transform: scale(100%) }
+}
