@@ -50,3 +50,6 @@ feature-toggle:
     environment: default
     api-url: http://localhost:14242/api/
     client-secret: '*:default.89ed25b900aa0b1d76e172263ba0ad19daf355799cfe86bef8688248'  # should be overwritten whenever a new API Access is created on Unleash server
+
+cors:
+  allow: '*'
