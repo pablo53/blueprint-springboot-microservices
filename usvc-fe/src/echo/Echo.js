@@ -13,7 +13,7 @@ class Echo extends Component {
     }
 
     handleSubmit(event) {
-        (new RestConnector()).get("/proxy/echo/" + this.state.value).then(
+        (new RestConnector()).get("/proxy/echo/" + encodeURIComponent(this.state.value)).then(
             (resp) => {
                 if (resp)
                     alert("Returned: " + resp.message);
