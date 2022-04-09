@@ -1,0 +1,15 @@
+.LoginPanelButton {
+    background-color: bisque;
+    color: #722;
+    border-radius: 7px;
+    border-color: #222222;
+    border-style: none;
+    border-width: thin;
+    margin: 5px;
+    padding: 7px;
+    font-size: medium;
+}
+
+.LoginPanelButton:hover {
+    background-color: white;
+}

@@ -5,6 +5,11 @@ export default class RestConnector {
     constructor() {
         this.backend_url = process.env.REACT_APP_RABERIX_BACKEND_API;
         this.auth_token = "TODO";
+        this.getBackendUrl = this.getBackendUrl.bind(this);
+    }
+
+    getBackendUrl() {
+        return this.backend_url;
     }
 
     async get(path) {

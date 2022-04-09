@@ -10,15 +10,23 @@
 .Raberix-header {
   background-color: #722;
   height: 100px;
-  padding: 20px;
-  color: white;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  color: bisque;
   text-align: left;
 }
 
 .Raberix-title {
   color: bisque;
-  margin: 20px;
+  margin: 10px;
   vertical-align: top;
+}
+
+.Raberix-loginPanel {
+  vertical-align: top;
+  float: right;
 }
 
 .Raberix-intro {
