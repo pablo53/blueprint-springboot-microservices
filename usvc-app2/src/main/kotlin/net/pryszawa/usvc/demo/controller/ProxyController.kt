@@ -2,7 +2,9 @@ package net.pryszawa.usvc.demo.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import net.pryszawa.usvc.demo.model.json.EchoJson
 import net.pryszawa.usvc.demo.service.ProxyService
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
@@ -28,8 +30,8 @@ class ProxyController(
             )
         ],
     )
-    @GetMapping("/echo/{message}")
-    fun getProxyEcho(@PathVariable("message") message: String): ResponseEntity<String> =
-        ResponseEntity.ok(proxyService.getProxyEcho(message))
+    @GetMapping("/echo/{message}", produces = [ MediaType.APPLICATION_JSON_VALUE ])
+    fun getProxyEcho(@PathVariable("message") message: String): ResponseEntity<EchoJson> =
+        ResponseEntity.ok(EchoJson(proxyService.getProxyEcho(message)))
 
 }
